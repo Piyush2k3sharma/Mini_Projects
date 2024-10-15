@@ -13,7 +13,10 @@ D_TERTIARY_COLOR = "#73428C"
 D_TEXT_COLOR = "#E2A8FF"
 
 # light mode
-
+L_PRIMARY_COLOR = ""
+L_SECONDARY_COLOR = ""
+L_TERTIARY_COLOR = ""
+L_TEXT_COLOR = ""
 
 '''Frame 1'''
 
@@ -27,17 +30,39 @@ category = ctk.CTkOptionMenu(frame_1,values=["Any","Custom"],fg_color=D_TERTIARY
 category.place(x=10,y=155)
 
 # radiobuttongroup here for custom types
+categ_val = ''
+def on_select(value):
+    categ_val = value
+
+var = ctk.StringVar()
+rad_btn1 = ctk.CTkRadioButton(frame_1,text="Programming",variable=var,command=lambda: on_select(var.get()))
+rad_btn1.place(x=10,y=195)
+
+rad_btn2 = ctk.CTkRadioButton(frame_1,text="Misc",variable=var,command=lambda: on_select(var.get()))
+rad_btn2.place(x=10,y=220)
+
+rad_btn3 = ctk.CTkRadioButton(frame_1,text="Dark",variable=var,command=lambda: on_select(var.get()))
+rad_btn3.place(x=10,y=245)
+
+rad_btn4 = ctk.CTkRadioButton(frame_1,text="Pun",variable=var,command=lambda: on_select(var.get()))
+rad_btn4.place(x=10,y=270)
+
+rad_btn5 = ctk.CTkRadioButton(frame_1,text="Spooky",variable=var,command=lambda: on_select(var.get()))
+rad_btn5.place(x=10,y=295)
+
+rad_btn6 = ctk.CTkRadioButton(frame_1,text="Christmas",variable=var,command=lambda: on_select(var.get()))
+rad_btn6.place(x=10,y=320)
 
 amount_label = ctk.CTkLabel(frame_1,text="Enter The Amount Of Jokes",
     fg_color=D_PRIMARY_COLOR,text_color=D_TEXT_COLOR,
     height=20,width=180,corner_radius=20)
-amount_label.place(x=10,y=200)
+amount_label.place(x=10,y=330)
 
 amount_input = ctk.CTkEntry(frame_1, placeholder_text="Enter Amount here : ",fg_color=D_TERTIARY_COLOR,height=30,width=180,corner_radius=4)
-amount_input.place(x=10,y=220)
+amount_input.place(x=10,y=350)
 
 btn = ctk.CTkButton(frame_1,text="Generate",fg_color=D_TERTIARY_COLOR,height=40,width=180,corner_radius=5)
-btn.place(x=10,y=270)
+btn.place(x=10,y=400)
 
 '''Frame 2'''
 
