@@ -18,6 +18,30 @@ L_SECONDARY_COLOR = ""
 L_TERTIARY_COLOR = ""
 L_TEXT_COLOR = ""
 
+def update_radio_buttons(category):
+    if category == "Custom":
+        types_btn1.configure(state="normal")
+        types_btn2.configure(state="normal")
+        types_btn3.configure(state="normal")
+        types_btn4.configure(state="normal")
+        types_btn5.configure(state="normal")
+        types_btn6.configure(state="normal")
+    else:
+        types_btn1.configure(state="disabled")
+        types_btn2.configure(state="disabled")
+        types_btn3.configure(state="disabled")
+        types_btn4.configure(state="disabled")
+        types_btn5.configure(state="disabled")
+        types_btn6.configure(state="disabled")
+
+def disp():
+    category = category.get()
+    amount = amount_input.get()
+    joke_type = joke_type
+    print(category)
+    print(amount)
+    print(joke_type)
+
 '''Frame 1'''
 
 frame_1 = ctk.CTkFrame(master=window,fg_color=D_PRIMARY_COLOR,corner_radius=0,height=600,width=200)
@@ -26,7 +50,7 @@ frame_1.place(x=0,y=0)
 logo = ctk.CTkLabel(frame_1,height=150,width=200,fg_color=D_TERTIARY_COLOR,corner_radius=20)
 logo.place(x=0,y=0)
 
-category = ctk.CTkOptionMenu(frame_1,values=["Any","Custom"],fg_color=D_TERTIARY_COLOR,height=30,width=180,corner_radius=15)
+category = ctk.CTkOptionMenu(frame_1,values=["Any","Custom"],fg_color=D_TERTIARY_COLOR,height=30,width=180,corner_radius=15,command=lambda event: update_radio_buttons(category.get()))
 category.place(x=10,y=155)
 
 # radiobuttongroup here for custom types
@@ -34,35 +58,55 @@ categ_val = ''
 def on_select(value):
     categ_val = value
 
-var = ctk.StringVar()
-rad_btn1 = ctk.CTkRadioButton(frame_1,text="Programming",variable=var,command=lambda: on_select(var.get()))
-rad_btn1.place(x=10,y=195)
+var1 = ctk.StringVar()
+types_btn1 = ctk.CTkRadioButton(frame_1,text="Programming",variable=var1,command=lambda: on_select(var1.get()))
+types_btn1.place(x=10,y=195)
 
-rad_btn2 = ctk.CTkRadioButton(frame_1,text="Misc",variable=var,command=lambda: on_select(var.get()))
-rad_btn2.place(x=10,y=220)
+types_btn2 = ctk.CTkRadioButton(frame_1,text="Misc",variable=var1,command=lambda: on_select(var1.get()))
+types_btn2.place(x=10,y=220)
 
-rad_btn3 = ctk.CTkRadioButton(frame_1,text="Dark",variable=var,command=lambda: on_select(var.get()))
-rad_btn3.place(x=10,y=245)
+types_btn3 = ctk.CTkRadioButton(frame_1,text="Dark",variable=var1,command=lambda: on_select(var1.get()))
+types_btn3.place(x=10,y=245)
 
-rad_btn4 = ctk.CTkRadioButton(frame_1,text="Pun",variable=var,command=lambda: on_select(var.get()))
-rad_btn4.place(x=10,y=270)
+types_btn4 = ctk.CTkRadioButton(frame_1,text="Pun",variable=var1,command=lambda: on_select(var1.get()))
+types_btn4.place(x=10,y=270)
 
-rad_btn5 = ctk.CTkRadioButton(frame_1,text="Spooky",variable=var,command=lambda: on_select(var.get()))
-rad_btn5.place(x=10,y=295)
+types_btn5 = ctk.CTkRadioButton(frame_1,text="Spooky",variable=var1,command=lambda: on_select(var1.get()))
+types_btn5.place(x=10,y=295)
 
-rad_btn6 = ctk.CTkRadioButton(frame_1,text="Christmas",variable=var,command=lambda: on_select(var.get()))
-rad_btn6.place(x=10,y=320)
+types_btn6 = ctk.CTkRadioButton(frame_1,text="Christmas",variable=var1,command=lambda: on_select(var1.get()))
+types_btn6.place(x=10,y=320) 
+
+update_radio_buttons("Any")
 
 amount_label = ctk.CTkLabel(frame_1,text="Enter The Amount Of Jokes",
     fg_color=D_PRIMARY_COLOR,text_color=D_TEXT_COLOR,
     height=20,width=180,corner_radius=20)
-amount_label.place(x=10,y=330)
+amount_label.place(x=10,y=350)
 
 amount_input = ctk.CTkEntry(frame_1, placeholder_text="Enter Amount here : ",fg_color=D_TERTIARY_COLOR,height=30,width=180,corner_radius=4)
-amount_input.place(x=10,y=350)
+amount_input.place(x=10,y=370)
 
-btn = ctk.CTkButton(frame_1,text="Generate",fg_color=D_TERTIARY_COLOR,height=40,width=180,corner_radius=5)
-btn.place(x=10,y=400)
+joke_type = ''
+def on_click(value):
+    global joke_type
+    joke_type = value
+
+var2 = ctk.StringVar()
+
+type_label = ctk.CTkLabel(frame_1,text="Select The Type of Jokes",
+    fg_color=D_PRIMARY_COLOR,text_color=D_TEXT_COLOR,
+    height=20,width=180,corner_radius=20)
+type_label.place(x=10,y=405)
+
+joke_type_btn1 = ctk.CTkRadioButton(frame_1,text="Single",variable=var2,command=lambda: on_click(var2.get()))
+joke_type_btn1.place(x=10,y=430)
+
+joke_type_btn2 = ctk.CTkRadioButton(frame_1,text="Two Part",variable=var2,command=lambda: on_click(var2.get()))
+joke_type_btn2.place(x=10,y=455)
+
+generate_btn = ctk.CTkButton(frame_1,text="Generate",fg_color=D_TERTIARY_COLOR,height=40,width=180,corner_radius=5,command=disp)
+generate_btn.place(x=10,y=500)
 
 '''Frame 2'''
 
