@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from PIL import Image
+import requests
 
 window = ctk.CTk()
 window.title('  JOKES')
@@ -23,6 +24,8 @@ L_TEXT_COLOR = ""
 
 
 
+jokes_text = ""
+
 def update_radio_buttons(category):
     if category == "Custom":
         types_btn1.configure(state="normal")
@@ -39,15 +42,47 @@ def update_radio_buttons(category):
         types_btn5.configure(state="disabled")
         types_btn6.configure(state="disabled")
 
+categ_dict = {
+    '0' : "Programming",
+    '1' : "Misc",
+    '2' : "Dark",
+    '3' : "Pun",
+    '4' : "Spooky",
+    '5' : "Christmas"
+}
 
-def disp():
+def gen_joke():
     if category.get()=='Any':
-        c = 'Any'
+        categ = 'Any'
     else:
-        c = 'Custom'
-    amount = amount_input.get()
-    j_type = joke_type
-    print(f"category : {c},category value : {categ_val},amount : {amount},joke type : {j_type}")
+        categ = categ_dict[categ_val]
+    if joke_type=="0":
+        j_type = 'single'
+    else:
+        j_type = 'twopart'
+    amnt = int(amount_input.get())
+    
+    url = f"https://v2.jokeapi.dev/joke/{categ}?type={j_type}&amount={amnt}"
+    json_data = requests.get(url)
+    jokes = json_data.json()
+    
+    if amnt==1:
+        if jokes['type'] =='single':
+            jokes_text += f"{jokes['joke']}\n"
+        else:
+            jokes_text += f"Setup : {jokes['setup']}\n"
+            jokes_text += f"Delivery : {jokes['delivery']}\n"
+    else:
+        count = amnt
+        for i in range(count):
+            jokes_text += f"JOKE : {i}\n"
+            if jokes['jokes'][i]['type']=='single':
+                jokes_text += f"{jokes['jokes'][i]['joke']}\n"
+            else:
+                jokes_text += f"{jokes['jokes'][i]['setup']}\n"
+                jokes_text += f"{jokes['jokes'][i]['delivery']}\n"
+
+    output_text.configure(text=jokes_text)
 
 
 '''Frame 1'''
@@ -116,7 +151,7 @@ joke_type_btn1.place(x=10,y=430)
 joke_type_btn2 = ctk.CTkRadioButton(frame_1,text="Two Part",variable=var2,value=1,command=lambda: on_click(var2.get()))
 joke_type_btn2.place(x=10,y=455)
 
-generate_btn = ctk.CTkButton(frame_1,text="Generate",fg_color=D_TERTIARY_COLOR,height=40,width=180,corner_radius=5,command=disp)
+generate_btn = ctk.CTkButton(frame_1,text="Generate",fg_color=D_TERTIARY_COLOR,height=40,width=180,corner_radius=5,command=gen_joke)
 generate_btn.place(x=10,y=500)
 
 '''Frame 2'''
@@ -127,34 +162,15 @@ frame_2.place(x=200,y=0)
 joke_label = ctk.CTkLabel(frame_2,text="Here Is Your Joke",font=("Mongolian Baiti",48,"bold"),width=500,height=100)
 joke_label.place(x=50,y=50)
 
-text = '''
-Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book. It usually begins with:
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-The purpose of lorem ipsum is to create a natural looking block of text (sentence, paragraph, page, etc.) that doesn't distract from the layout. A practice not without controversy, laying out pages with meaningless filler text can be very useful when the focus is meant to be on design, not content.
-
-The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. Today it's seen all around the web; on templates, websites, and stock designs. Use our generator to get your own, or read on for the authoritative history of lorem ipsum.
-Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book. It usually begins with:
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-The purpose of lorem ipsum is to create a natural looking block of text (sentence, paragraph, page, etc.) that doesn't distract from the layout. A practice not without controversy, laying out pages with meaningless filler text can be very useful when the focus is meant to be on design, not content.
-
-The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. Today it's seen all around the web; on templates, websites, and stock designs. Use our generator to get your own, or read on for the authoritative history of lorem ipsum.
-'''
-
 output_text = ctk.CTkTextbox(frame_2,width=530,height=400,corner_radius=10,
     text_color=D_TEXT_COLOR,fg_color=D_SECONDARY_COLOR)
-output_text.insert('0.0',text)
+output_text.insert('0.0',jokes_text)
 output_text.configure(state="disabled")
 output_text.place(x=35,y=160)
 
 window.mainloop()
 
 '''
-
 Color pallete website - https://paletton.com/
 Image logo link - https://www.freepik.com/free-psd/3d-emoji-isolated_133742319.htm#fromView=search&page=1&position=18&uuid=3f2b9d28-0797-454e-8cfe-761b7e381b24
-
 '''
