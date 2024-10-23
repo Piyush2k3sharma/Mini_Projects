@@ -6,21 +6,21 @@ window = ctk.CTk()
 window.title('  JOKES')
 window.geometry('800x600')
 # ctk.set_appearance_mode('light')
-
+# window.overrideredirect(True)
 
 ''' Color scheme '''
 
-# dark mode -- Purple tone
+# dark mode -- Purple tone mei
 D_PRIMARY_COLOR = "#2A033E"
 D_SECONDARY_COLOR = "#42125B"
 D_TERTIARY_COLOR = "#73428C"
 D_TEXT_COLOR = "#E2A8FF"
 
-# light mode
-L_PRIMARY_COLOR = "#FEB881"
-L_SECONDARY_COLOR = "#FFCEA7"
-L_TERTIARY_COLOR = "#DB8E51"
-L_TEXT_COLOR = "#BB6B2C"
+# light mode -- Grey tone mei
+L_PRIMARY_COLOR= "#F0F5F8" 
+L_SECONDARY_COLOR= "#D0E0E8" 
+L_TERTIARY_COLOR= "#B0C0D0"
+L_TEXT_COLOR= "#304050" 
 
 
 
@@ -94,14 +94,21 @@ def gen_joke():
 frame_1 = ctk.CTkFrame(master=window,fg_color=(L_PRIMARY_COLOR,D_PRIMARY_COLOR),corner_radius=0,height=600,width=200)
 frame_1.place(x=0,y=0)
 
-my_image = ctk.CTkImage(light_image=Image.open(r"C:\Users\ayush\OneDrive\Desktop\Netmaxx\Python files\Mini projects\images\10254401.png"),dark_image=Image.open(r"C:\Users\ayush\OneDrive\Desktop\Netmaxx\Python files\Mini projects\images\10254401.png"),size=(165, 165))
+my_image = ctk.CTkImage(light_image=Image.open(r"C:\Users\ayush\OneDrive\Desktop\Netmaxx\Python files\Mini projects\images\Upside Down Face Emoji.png"),dark_image=Image.open(r"C:\Users\ayush\OneDrive\Desktop\Netmaxx\Python files\Mini projects\images\Upside Down Face Emoji.png"),size=(130, 130))
 
 logo = ctk.CTkLabel(frame_1,height=150,width=200,fg_color=(L_PRIMARY_COLOR,D_PRIMARY_COLOR),image=my_image,text="",corner_radius=20)
 logo.place(x=0,y=0)
 
 category = ctk.CTkOptionMenu(frame_1,values=["Any","Custom"],fg_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
                              button_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
-                             button_hover_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),dropdown_fg_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),dropdown_hover_color=(L_SECONDARY_COLOR,D_SECONDARY_COLOR),height=30,width=180,corner_radius=15,hover=True,command=lambda event: update_radio_buttons(category.get()))
+                             button_hover_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
+                             dropdown_text_color=(L_TEXT_COLOR,D_TEXT_COLOR),
+                             dropdown_fg_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
+                             dropdown_hover_color=(L_SECONDARY_COLOR,D_SECONDARY_COLOR),
+                             text_color=(L_TEXT_COLOR,D_TEXT_COLOR),
+                             font=("Times New Roman",16),dropdown_font=("Times New Roman",16),
+                             height=30,width=180,corner_radius=15,hover=True,
+                             command=lambda event: update_radio_buttons(category.get()))
 category.place(x=10,y=155)
 
 # radiobuttongroup here for custom types
@@ -115,6 +122,8 @@ types_btn1 = ctk.CTkRadioButton(frame_1,text="Programming",variable=var1,value=0
                                 hover_color=(L_SECONDARY_COLOR,D_SECONDARY_COLOR),
                                 border_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
                                 fg_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
+                                text_color=(L_TEXT_COLOR,D_TEXT_COLOR),
+                                font=("Times New Roman",16),
                                 border_width_checked=4,border_width_unchecked=2,
                                 command=lambda: on_select(var1.get()))
 types_btn1.place(x=10,y=195)
@@ -123,6 +132,8 @@ types_btn2 = ctk.CTkRadioButton(frame_1,text="Misc",variable=var1,value=1,
                                 hover_color=(L_SECONDARY_COLOR,D_SECONDARY_COLOR),
                                 border_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
                                 fg_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
+                                text_color=(L_TEXT_COLOR,D_TEXT_COLOR),
+                                font=("Times New Roman",16),
                                 border_width_checked=4,border_width_unchecked=2,
                                 command=lambda: on_select(var1.get()))
 types_btn2.place(x=10,y=220)
@@ -131,6 +142,8 @@ types_btn3 = ctk.CTkRadioButton(frame_1,text="Dark",variable=var1,value=2,
                                 hover_color=(L_SECONDARY_COLOR,D_SECONDARY_COLOR),
                                 border_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
                                 fg_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
+                                text_color=(L_TEXT_COLOR,D_TEXT_COLOR),
+                                font=("Times New Roman",16),
                                 border_width_checked=4,border_width_unchecked=2,
                                 command=lambda: on_select(var1.get()))
 types_btn3.place(x=10,y=245)
@@ -139,6 +152,8 @@ types_btn4 = ctk.CTkRadioButton(frame_1,text="Pun",variable=var1,value=3,
                                 hover_color=(L_SECONDARY_COLOR,D_SECONDARY_COLOR),
                                 border_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
                                 fg_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
+                                text_color=(L_TEXT_COLOR,D_TEXT_COLOR),
+                                font=("Times New Roman",16),
                                 border_width_checked=4,border_width_unchecked=2,
                                 command=lambda: on_select(var1.get()))
 types_btn4.place(x=10,y=270)
@@ -147,7 +162,9 @@ types_btn5 = ctk.CTkRadioButton(frame_1,text="Spooky",variable=var1,value=4,
                                 hover_color=(L_SECONDARY_COLOR,D_SECONDARY_COLOR),
                                 border_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
                                 fg_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
+                                text_color=(L_TEXT_COLOR,D_TEXT_COLOR),
                                 border_width_checked=4,border_width_unchecked=2,
+                                font=("Times New Roman",16),
                                 command=lambda: on_select(var1.get()))
 types_btn5.place(x=10,y=295)
 
@@ -155,6 +172,8 @@ types_btn6 = ctk.CTkRadioButton(frame_1,text="Christmas",variable=var1,value=5,
                                 hover_color=(L_SECONDARY_COLOR,D_SECONDARY_COLOR),
                                 border_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
                                 fg_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
+                                text_color=(L_TEXT_COLOR,D_TEXT_COLOR),
+                                font=("Times New Roman",16),
                                 border_width_checked=4,border_width_unchecked=2,
                                 command=lambda: on_select(var1.get()))
 types_btn6.place(x=10,y=320) 
@@ -166,7 +185,11 @@ amount_label = ctk.CTkLabel(frame_1,text="Enter The Amount Of Jokes",
     height=20,width=180,corner_radius=20)
 amount_label.place(x=10,y=350)
 
-amount_input = ctk.CTkEntry(frame_1, placeholder_text="Enter Amount here : ",fg_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),height=30,width=180,corner_radius=4)
+amount_input = ctk.CTkEntry(frame_1, placeholder_text="Enter Amount here : ",
+                            fg_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
+                            text_color=(L_TEXT_COLOR,D_TEXT_COLOR),
+                            placeholder_text_color=(L_TEXT_COLOR,D_TEXT_COLOR),
+                            height=30,width=180,corner_radius=4)
 amount_input.place(x=10,y=370)
 
 joke_type = None
@@ -185,6 +208,8 @@ joke_type_btn1 = ctk.CTkRadioButton(frame_1,text="Single",variable=var2,value=0,
                                     hover_color=(L_SECONDARY_COLOR,D_SECONDARY_COLOR),
                                     border_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
                                     fg_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
+                                    text_color=(L_TEXT_COLOR,D_TEXT_COLOR),
+                                    font=("Times New Roman",16),
                                     border_width_checked=4,border_width_unchecked=2,
                                     command=lambda: on_click(var2.get()))
 joke_type_btn1.place(x=10,y=435)
@@ -193,13 +218,17 @@ joke_type_btn2 = ctk.CTkRadioButton(frame_1,text="Two Part",variable=var2,value=
                                     hover_color=(L_SECONDARY_COLOR,D_SECONDARY_COLOR),
                                     border_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
                                     fg_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
+                                    text_color=(L_TEXT_COLOR,D_TEXT_COLOR),
+                                    font=("Times New Roman",16),
                                     border_width_checked=4,border_width_unchecked=2,
                                     command=lambda: on_click(var2.get()))
 joke_type_btn2.place(x=10,y=460)
 
 generate_btn = ctk.CTkButton(frame_1,text="Generate",
                             fg_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
+                            text_color=(L_TEXT_COLOR,D_TEXT_COLOR),
                             hover_color=(L_SECONDARY_COLOR,D_SECONDARY_COLOR),
+                            font=("Palatino Linotype",20,"bold"),
                             height=40,width=180,corner_radius=5,command=gen_joke)
 generate_btn.place(x=10,y=500)
 
@@ -208,16 +237,17 @@ generate_btn.place(x=10,y=500)
 frame_2 = ctk.CTkFrame(master=window,fg_color=(L_SECONDARY_COLOR,D_SECONDARY_COLOR),corner_radius=0,height=600,width=600)
 frame_2.place(x=200,y=0)
 
-joke_label = ctk.CTkLabel(frame_2,text="Here Is Your Joke",
-                            font=("Mongolian Baiti",48,"bold"),text_color=(L_TEXT_COLOR,D_TEXT_COLOR),
+joke_label = ctk.CTkLabel(frame_2,text=":-: Joke Board :-:",
+                            font=("Segoe Script",48,"bold"),
+                            text_color=(L_TEXT_COLOR,D_TEXT_COLOR),
                             width=500,height=100)
-joke_label.place(x=50,y=50)
+joke_label.place(x=45,y=45)
 
 output_text = ctk.CTkTextbox(frame_2,width=530,height=400,corner_radius=10,
-    text_color=D_TEXT_COLOR,fg_color=(L_SECONDARY_COLOR,D_SECONDARY_COLOR),
+    text_color=(L_TEXT_COLOR,D_TEXT_COLOR),fg_color=(L_SECONDARY_COLOR,D_SECONDARY_COLOR),
     scrollbar_button_color=(L_TERTIARY_COLOR,D_TERTIARY_COLOR),
     scrollbar_button_hover_color=(L_PRIMARY_COLOR,D_PRIMARY_COLOR),
-    font=("Mongolian Baiti",24))
+    font=("Palatino Linotype",24,"italic"))
 output_text.insert('0.0',text="")
 output_text.place(x=35,y=160)
 
@@ -225,5 +255,5 @@ window.mainloop()
 
 '''
 Color pallete website - https://paletton.com/
-Image logo link - https://www.freepik.com/free-psd/3d-emoji-isolated_133742319.htm#fromView=search&page=1&position=18&uuid=3f2b9d28-0797-454e-8cfe-761b7e381b24
+Image logo link - https://logowik.com/upside-down-face-emoji-icon-55122.html
 '''
